@@ -16,28 +16,25 @@ def detect_document(path):
 
     response = client.document_text_detection(image=image)
 
-    # print(response)
+    print(type(response))
 
     for page in response.full_text_annotation.pages:
         for block in page.blocks:
-            print('\nBlock confidence: {}\n'.format(block.confidence))
+            print(f'\nBlock confidence: {block.confidence}\n')
 
             for paragraph in block.paragraphs:
-                print('Paragraph confidence: {}'.format(
-                    paragraph.confidence))
+                print(f'Paragraph confidence: {paragraph.confidence}')
 
                 for word in paragraph.words:
                     word_text = ''.join([
                         symbol.text for symbol in word.symbols
                     ])
-                    print('Word text: {} (confidence: {})'.format(
-                        word_text, word.confidence))
+                    print(f'Word text: {word_text} (confidence: {word.confidence})')
 
                     for symbol in word.symbols:
-                        print('\tSymbol: {} (confidence: {})'.format(
-                            symbol.text, symbol.confidence))
+                        print(f'\tSymbol: {symbol.text} (confidence: {symbol.confidence})')
 
 
 if __name__ == '__main__':
     # authenticate()
-    detect_document("handwriting.png")
+    detect_document("devocion_test.jpg")
