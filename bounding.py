@@ -64,7 +64,7 @@ def place_box(corners, image_obj, color=(0, 254, 0)):
 
     return image_obj
 
-def box_document(path, box_words=False):
+def box_document(path, box_words=True, box_letters=False):
     """Detects document features in an image."""
 
     client = vision.ImageAnnotatorClient.from_service_account_json('creds.json')
@@ -83,10 +83,11 @@ def box_document(path, box_words=False):
             for paragraph in block.paragraphs:
                 for word in paragraph.words:
                     for symbol in word.symbols:
-                        box = []
-                        for vertex in symbol.bounding_box.vertices:
-                            box.append({'x': vertex.x, 'y': vertex.y})
-                        boxes.append(box)
+                        if box_letters:
+                            box = []
+                            for vertex in symbol.bounding_box.vertices:
+                                box.append({'x': vertex.x, 'y': vertex.y})
+                            boxes.append(box)
                     # draw larger box after small ones
                     if box_words:
                         box = []
