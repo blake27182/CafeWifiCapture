@@ -13,3 +13,9 @@ make a little script to draw bounding boxes on the letters, words, and blocks et
 learn react native
 
 Build a mvp in either Node.js or React Native, prefferably React because it will run natively on mobile, and so I'm assuming it will have more access to system files like network preferences.
+
+    Updates:
+
+I've finished the bounding box scripts which will make it easy for me to see what the google api is thinking. I have optional boxes for the paragraphs, words, and letters, all of different colors. 
+
+I'm now working on a way to organize the words to easily pair the words together, so we know which is the network name and which is the password. It may be easier to pick a few good options and try every combination.
