@@ -5,8 +5,6 @@ import io, requests, json
 def detect_document(path):
     """Detects document features in an image."""
 
-    # client = vision.Client.from_service_account_json('/path/to/keyfile.json')
-
     client = vision.ImageAnnotatorClient.from_service_account_json('creds.json')
 
     with io.open(path, 'rb') as image_file:
@@ -36,5 +34,4 @@ def detect_document(path):
 
 
 if __name__ == '__main__':
-    # authenticate()
     detect_document("devocion_test.jpg")
