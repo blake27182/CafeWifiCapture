@@ -4,7 +4,7 @@
     <list default="true" id="cbd145ae-a1c3-487c-b697-557a48b702d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bounding.py" beforeDir="false" afterPath="$PROJECT_DIR$/bounding.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devocion_test.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/devocion_test.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+            <state relative-caret-position="440">
+              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -26,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bounding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="51" column="30" lean-forward="true" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+            <state relative-caret-position="706">
+              <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -51,7 +51,12 @@
     <findStrings>
       <find>0,</find>
       <find>3,</find>
+      <find>image</find>
+      <find>content</find>
     </findStrings>
+    <replaceStrings>
+      <replace>image_obj</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,8 +64,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main_test.py" />
         <option value="$PROJECT_DIR$/bounding.py" />
+        <option value="$PROJECT_DIR$/main_test.py" />
       </list>
     </option>
   </component>
@@ -103,7 +108,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.bounding">
+  <component name="RunManager" selected="Python.main_test">
     <configuration name="bounding" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="HandwritingTests" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,8 +153,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.bounding" />
         <item itemvalue="Python.main_test" />
+        <item itemvalue="Python.bounding" />
       </list>
     </recent_temporary>
   </component>
@@ -178,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573483937625</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Got a green line to show up. Much faster solution. I also figured out that whatever meta-data was in my original made the image rotate. After manually setting orientation in preview, it worked. Since pixel data is still read in the same order, this should not affect the future application">
+      <created>1573487807727</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1573487807727</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -207,23 +219,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updating readme" />
     <MESSAGE value="made a green square show up on the picture" />
-    <option name="LAST_COMMIT_MESSAGE" value="made a green square show up on the picture" />
+    <MESSAGE value="Got a green line to show up. Much faster solution. I also figured out that whatever meta-data was in my original made the image rotate. After manually setting orientation in preview, it worked. Since pixel data is still read in the same order, this should not affect the future application" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got a green line to show up. Much faster solution. I also figured out that whatever meta-data was in my original made the image rotate. After manually setting orientation in preview, it worked. Since pixel data is still read in the same order, this should not affect the future application" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/google/auth/_service_account_info.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
           <caret line="71" selection-start-line="71" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -234,12 +237,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/PIL/Image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="1752" selection-start-line="1752" selection-end-line="1752" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bounding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="51" column="30" lean-forward="true" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+        <state relative-caret-position="706">
+          <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

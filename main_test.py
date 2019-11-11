@@ -1,5 +1,7 @@
 from google.cloud import vision
+from PIL import Image as pilImage
 import io, requests, json
+from bounding import place_box
 
 
 def detect_document(path):
@@ -14,24 +16,38 @@ def detect_document(path):
 
     response = client.document_text_detection(image=image)
 
-    print(type(response))
+    boxes = []      # list of list of dict
 
     for page in response.full_text_annotation.pages:
         for block in page.blocks:
-            print(f'\nBlock confidence: {block.confidence}\n')
-
             for paragraph in block.paragraphs:
-                print(f'Paragraph confidence: {paragraph.confidence}')
-
                 for word in paragraph.words:
-                    word_text = ''.join([
-                        symbol.text for symbol in word.symbols
-                    ])
-                    print(f'Word text: {word_text} (confidence: {word.confidence})')
-
                     for symbol in word.symbols:
-                        print(f'\tSymbol: {symbol.text} (confidence: {symbol.confidence})')
+                        box = []
+                        for vertex in symbol.bounding_box.vertices:
+                            box.append({'x': vertex.x, 'y': vertex.y})
+                        boxes.append(box)
+                    # draw larger box after small ones
+                    box = []
+                    for vertex in word.bounding_box.vertices:
+                        box.append({'x': vertex.x,
+                                    'y': vertex.y,
+                                    'color': (254, 0, 0)})
+                    boxes.append(box)
+
+    box_image = pilImage.open(path)
+    for box in boxes:
+        if 'color' in box[0].keys():
+            box_image = place_box(box, box_image, box[0]['color'])
+        else:
+            box_image = place_box(box, box_image)
+
+    box_image.show()
 
 
 if __name__ == '__main__':
-    detect_document("devocion_test.jpg")
+    # path = "devocion_test.jpg"
+    path = 'devocion_test copy.jpg'
+    # path = 'handwriting.png'
+
+    detect_document(path)
