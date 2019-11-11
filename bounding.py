@@ -2,32 +2,69 @@ from PIL import Image
 import base64
 
 
-def main_test(option):
-    if option == 1:
-        image_path = "handwriting.png"
-    if option == 2:
-        image_path = "devocion_test.jpg"
-    if option == 3:
-        image_path = "devocion_test copy.jpg"
+def main_test(corners, image_path):
+    width = 10
+    # make corners comply with list of dict format
+    # e.g. [{"x": 50, "y": 100},
+    #       {"x":100, "y": 100}, ... ]
 
     image = Image.open(image_path)
-    data = image.getdata()
-    data = list(data)
 
-    for i in range(100, 200):
-        for j in range(100, 200):
-            pos = image.size[0]*i+j
-            data[pos] = (0, 254, 0)
+    # Draw top line
+    for i in range(corners[0]['y'], corners[0]['y'] + width):
+        for j in range(corners[0]['x'], corners[1]['x']):
+            image.putpixel((j, i), (0, 254, 0))
 
-    new_image = Image.new(image.mode, image.size)
-    new_image.putdata(data=data)
-    new_image.save("new_image", format=image.format)
-    new_image.show()
+    dot_idx = image_path.rfind('.')
+    new_name = image_path[:dot_idx] + "_boxed" + image_path[dot_idx:]
+    image.save(new_name, image.format)
+
+    image.show()
 
 
-def place_box(corners, image):
-    pass
+def place_box(corners, image_path):
+    # make corners comply with list of dict format
+    # e.g. [{"x": 50, "y": 100},
+    #       {"x":100, "y": 100}, ... ]
+
+    image = Image.open(image_path)
+    width = int(image.size[1]/300)
+
+    # Draw top line
+    for i in range(corners[0]['y'], corners[0]['y'] + width):
+        for j in range(corners[0]['x'], corners[1]['x']):
+            image.putpixel((j, i), (0, 254, 0))
+
+    dot_idx = image_path.rfind('.')
+    new_name = image_path[:dot_idx] + "_boxed" + image_path[dot_idx:]
+    image.save(new_name, image.format)
+
+    image.show()
 
 
 if __name__ == '__main__':
-    main_test(3)
+    # path = 'devocion_test.jpg'
+    # path = 'devocion_test copy.jpg'
+    path = 'handwriting.png'
+
+    corners = [
+        {
+            "x": 100,
+            "y": 100,
+        },
+        {
+            "x": 200,
+            "y": 100,
+        },
+        {
+            "x": 200,
+            "y": 200,
+        },
+        {
+            "x": 100,
+            "y": 200,
+        },
+    ]
+
+    # main_test(corners, path)
+    place_box(corners, path)
