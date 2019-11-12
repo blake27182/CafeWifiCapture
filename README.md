@@ -6,7 +6,7 @@ My current roadmap looks like this:
 
 I made a Python script that authenticates with the google cloud vision api, and can make requests with it. I have fed it an example image provided by google to test it out, and it works great on that.
 
-	Next Steps:
+	Original Plan:
 
 make a little script to draw bounding boxes on the letters, words, and blocks etc and show the confidence and label
 
@@ -14,7 +14,7 @@ learn react native
 
 Build a mvp in either Node.js or React Native, prefferably React because it will run natively on mobile, and so I'm assuming it will have more access to system files like network preferences.
 
-    Updates:
+    Actual Process:
 
 I've finished the bounding box scripts which will make it easy for me to see what the google api is thinking. I have optional boxes for the paragraphs, words, and letters, all of different colors. 
 
