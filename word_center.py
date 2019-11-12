@@ -74,8 +74,19 @@ def similarity_helper(a_low, b_low, a, b):
                     best = temp
     return best
 
+
 def get_passwords(words):
-    pass
+    word_list = [x['word'] for x in words]
+    samples = ['password', 'PASSWORD', 'pw', 'PW']
+    p_match = get_matches(word_list, samples, num_res=1)
+    best_center = {}
+    for word in words:
+        if word['word'] == p_match[0]:
+            best_center = word['center']
+            break
+
+    # grab the closest words to this one
+    # return those words
 
 
 if __name__ == '__main__':
