@@ -16,17 +16,21 @@ Make a process for finding the network name and password in the jumble of words 
 
 Make a process for using the words detected in the picture for logging into a network
 
-## Actual Process:
+## Current Progress:
 
 #### Did 
 * I've finished the bounding box scripts which will make it easy for me to see what the google api is thinking. I have optional boxes for the paragraphs, words, and letters, all of different colors. 
 
 #### Learned
-* It turns out google's vision model does not match the bounding box corners up in a rectangle. So I ended up just parsing out opposite corners and drawing my box based on that. To draw these boxes, I wanted to break it down to the byte code of the image, but after looking at a few images in base64 and in hex, I decided the jpg and png styles were different enought that I would not have time this round to account for all file types. I ended up using Python Image Library to read the pixel values in, change the ones i needed, then write that data to a new file. Reading and writing is super slow though, so instead of reading the pixel values in, I kept it as an PIL.Image object. In reading about this class, I found a method to change pixel values way more easily. I could also render the image without saving it to disk this way.
+* It turns out google's vision model does not match the bounding box corners up in a rectangle. So I ended up just parsing out opposite corners and drawing my box based on that. 
+* To draw these boxes, I wanted to break it down to the byte code of the image, but after looking at a few images in base64 and in hex, I decided the jpg and png styles were different enought that I would not have time this round to account for all file types. 
+* I ended up using Python Image Library to read the pixel values in, change the ones I needed, then write that data to a new file. Reading and writing is super slow though, so instead of reading the pixel values in, I kept it as an PIL.Image object. In reading about this class, I found a method to change pixel values way more easily. I could also render the image without saving it to disk this way.
 
 
-### Did 
+#### Did 
 * I'm now working on a way to organize the words to easily pair the words together, so we know which is the network name and which is the password. It may be easier to pick a few good options and try every combination.
 
-### Learned
-* Similarity is kind of subjective. I went with a definition that that counts the number of letters that match in-order and represents that number as a fraction of the total number of *implied* letters. This just means that if the strings are different in length, we'll represent the empty spaces of the smaller one as letters that do not match. I did that because sometimes Google vision misrepresents a letter like '0' instead of 'o'. If we were just counting matched letters out of total letters, the pair (hello, hell) would have a higher score than (hello, hell0), but the second pair is clearly closer to the real word. In addition, sometimes you've got names like NETGEAR411 and NETGEAR411-5G. Those have different meaning, so empty spaces count against correctness. 
+#### Learned
+* Google vision is not perfect, so we need a way to check a few close options in the case that a perfect match is not found
+* Similarity is kind of subjective. I went with a definition that that counts the number of letters that match in-order and represents that number as a fraction of the total number of *implied* letters. This just means that if the strings are different in length, we'll represent the empty spaces of the smaller one as letters that do not match. 
+* I did this because sometimes Google vision misrepresents a letter like '0' instead of 'o'. If we were just counting matched letters out of total letters, the pair (hello, hell) would have a higher score than (hello, hell0), but the second pair is clearly more similar. In addition, sometimes you've got names like NETGEAR411 and NETGEAR411-5G. Those have different meaning, so empty spaces count against correctness. 
