@@ -4,7 +4,7 @@ Imagine you are in a crowded coffee shop and you're ready to pay for your order.
 
 My current roadmap looks like this:
 
-I have a Python script that authenticates with the google cloud vision api, and can make GET and POST requests with it. I have fed it an example image provided by google to test it out, and it works great on that.
+I made a Python script that authenticates with the google cloud vision api, and can make GET and POST requests with it. I have fed it an example image provided by google to test it out, and it works great on that.
 
 	Next Steps:
 
