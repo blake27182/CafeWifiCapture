@@ -39,3 +39,5 @@ Make a process for using the words detected in the picture for logging into a ne
 
 #### Learning
 * considering options like: Letting a machine learning model look at the placements and values of the words in the image to determine the password. Letting an ML model look at all the words and learning what a password usually looks like. Making a search algorithm to locate keywords like "password" or "pw" and look for words in a certain position relative to those words (like to the right of, or below)
+
+![Split words](readme_images/yourstruly.jpg)
