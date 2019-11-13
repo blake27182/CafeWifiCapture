@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cbd145ae-a1c3-487c-b697-557a48b702d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bounding_center.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/creds.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/devocion_test.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/encoded.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/handwriting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network_center.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/request.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/word_center.py" beforeDir="false" />
-    </list>
+    <list default="true" id="cbd145ae-a1c3-487c-b697-557a48b702d1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
