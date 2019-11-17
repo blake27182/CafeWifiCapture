@@ -1,7 +1,7 @@
 import os
 
 
-def get_network_info():
+def get_ssid_list():
     if os.path.exists("ssid_scan.txt"):
         os.remove('ssid_scan.txt')
     os.system("/System/Library/PrivateFrameworks/Apple80211.framework/"
@@ -20,7 +20,7 @@ def get_network_info():
 
 
 if __name__ == '__main__':
-    network_names = get_network_info()
+    network_names = get_ssid_list()
     for name in network_names:
         print(name)
 

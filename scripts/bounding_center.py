@@ -90,16 +90,7 @@ def get_corners(response, box_words=True, box_letters=False, box_paragraphs=Fals
     return boxes
 
 
-def box_document(a_path, **kwargs):
-
-    client = vision.ImageAnnotatorClient.from_service_account_json('creds.json')
-
-    with io.open(a_path, 'rb') as image_file:
-        content = image_file.read()
-
-    o_image = vision.types.Image(content=content)
-    response = client.document_text_detection(image=o_image)
-
+def box_document(a_path, response, **kwargs):
     boxes = get_corners(response, **kwargs)
     box_image = Image.open(a_path)
 

@@ -1,6 +1,20 @@
-def get_words(response):
-    words = []
+import math
+import numpy as np
+import sys
+from scripts.classes import Vertex, WordPoly
 
+
+def get_word_polys(response):
+    """Parses out all the words in the response object to a list of WordPolys
+
+    Args:
+        response: Google API response object
+
+    Returns:
+        (`list` of obj:`WordPoly`): The list of words in the document
+            as WordPolys.
+    """
+    words = []
     for page in response.full_text_annotation.pages:
         for block in page.blocks:
             for paragraph in block.paragraphs:
@@ -8,29 +22,68 @@ def get_words(response):
                     curr_word = ''
                     for symbol in word.symbols:
                         curr_word += symbol.text
+                    vertices = word.bounding_box.vertices
                     words.append(
-                        {
-                            'word': curr_word,
-                            'confidence': word.confidence,
-                            'center': {
-                                'x': (word.bounding_box.vertices[0].x
-                                      + word.bounding_box.vertices[2].x) / 2,
-                                'y': (word.bounding_box.vertices[0].y
-                                      + word.bounding_box.vertices[2].y) / 2
-                            }
-                        }
+                        WordPoly(
+                            vertices=vertices,
+                            confidence=word.confidence,
+                            word=curr_word
+                        )
                     )
-
     return words
 
 
+# def word_proximity(a, b, response):
+
+
+def get_poly(a_word, response, str_type='word'):
+    """Gets the WordPoly version of a given string.
+
+    Args:
+        a_word: (str): Must be present in response object
+        response: (Google API response): response object
+        str_type: (str): paragraph or word or symbol
+
+    Returns:
+        (obj:`WordPoly`): WordPoly for the given string
+    """
+    if str_type == 'word':
+        for word in response.text_annotations:
+            if word.description == a_word:
+                return WordPoly(
+                    word=a_word,
+                    confidence=word.confidence,
+                    vertices=word.bounding_box.vertices
+                )
+    # elif str_type == 'paragraph':
+    #     for page in response.full_text_annotation.pages:
+    #         for block in page.blocks:
+    #             for paragraph in block.paragraphs:
+
+
+
 def get_matches(word_list, network_names, num_res=3):
-    # high pass
+    """Finds the top matches in any two list of strings.
+
+    Args:
+        word_list: (list of obj:`WordPoly` or str): detected words
+        network_names: (list of str): ssids scanned on airport
+        num_res: (int): maximum number of results to return. If an exact match
+            is found, only that match is returned.
+
+    Returns:
+        (list of tuple of str, str, float): Matches by words compared & smlrty
+    """
+    # convert to strings if its a list of WordPoly
+    if type(word_list[0]) is WordPoly:
+        word_list = [x.word for x in word_list]
+
+    # high pass (return exact match)
     for word in word_list:
         if word in network_names:
             return [(word, word, 1)]
 
-    # medium pass
+    # medium pass (top results out of top 3's of each detected word)
     top_results = []
     for word in word_list:
         temp_list = [similarity(word, x) for x in network_names]
@@ -55,6 +108,19 @@ def get_matches(word_list, network_names, num_res=3):
 
 
 def similarity(x, y):
+    """Assesses how similar two strings are.
+
+    Hard bias for characters in the same order. Will return extremely low
+    similarity for palindromes.
+
+    Args:
+        x: (str): first string
+        y: (str): second string
+
+    Returns:
+        (tuple of str, str, float): The two strings compared, and similarity.
+            Closer to 1 is more similar, closer to 0 is less similar.
+    """
     # known issues with this algorithm:
     # hello / hellx receives the same score as hello / hell0
     # hello / hell receives the same score as hello / hell0
@@ -90,6 +156,44 @@ def get_passwords(words):
 
 
 if __name__ == '__main__':
-    word1 = 'helmo'
-    word2 = 'hnello'
-    print(similarity(word1, word2))
+    a_poly = {
+        "vertices": [
+            {
+                "x": 195,
+                "y": 59
+            },
+            {
+                "x": 408,
+                "y": 59
+            },
+            {
+                "x": 408,
+                "y": 155
+            },
+            {
+                "x": 195,
+                "y": 155
+            }
+        ]
+    }
+    b_poly = {
+        "vertices": [
+            {
+                "x": 360,
+                "y": 59
+            },
+            {
+                "x": 408,
+                "y": 59
+            },
+            {
+                "x": 408,
+                "y": 102
+            },
+            {
+                "x": 360,
+                "y": 102
+            }
+        ]
+    }
+
