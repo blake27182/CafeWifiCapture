@@ -1,7 +1,7 @@
 from google.cloud import vision
 import io
 from scripts.bounding_center import box_document
-from scripts.word_center import get_word_polys, get_matches
+from scripts.word_center import *
 from scripts.network_center import get_ssid_list
 
 
@@ -18,20 +18,20 @@ def detect_document(image_path, **kwargs):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Boxing section
 
-    box_image = box_document(image_path, response, **kwargs)
-    box_image.show()
+    # box_image = box_document(image_path, response, **kwargs)
+    # box_image.show()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Word gathering section
 
     words = get_word_polys(response)
     for word in words:
-        word.print()
+        print(word)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Network scanning and matching section
 
     # words = get_word_polys(response)
     # network_names = get_ssid_list()
-    # matches = get_matches(words, network_names, num_res=5)
+    # matches = get_matches_string(words, network_names, num_res=5)
     # print(network_names)
     # for match in matches:
     #     print(match)
@@ -43,15 +43,17 @@ def detect_document(image_path, **kwargs):
     # if none of the words work, and there are multiple words
     # that are close together, try concatenating them
     # and using the result
+    pass_matches = get_passwords(words)
+    print(pass_matches)
 
 
 if __name__ == '__main__':
     # path = "src_images/devocion_test.jpg"
-    path = 'src_images/skytown.jpg'
+    # path = 'src_images/skytown.jpg'
     # path = 'src_images/skytown2.jpg'
     # path = 'src_images/handwriting.png'
     # path = 'src_images/rand_words.jpg'
-    # path = 'src_images/router.jpg'
+    path = 'src_images/router.jpg'
 
     detect_document(
         path,

@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import sys
-from scripts.classes import Vertex, WordPoly
+from scripts.classes import Vertex, WordPoly, Match
 
 
 def get_word_polys(response):
@@ -16,8 +16,8 @@ def get_word_polys(response):
     """
     words = []
     for page in response.full_text_annotation.pages:
-        for block in page.blocks:
-            for paragraph in block.paragraphs:
+        for b, block in enumerate(page.blocks):
+            for p, paragraph in enumerate(block.paragraphs):
                 for word in paragraph.words:
                     curr_word = ''
                     for symbol in word.symbols:
@@ -27,7 +27,9 @@ def get_word_polys(response):
                         WordPoly(
                             vertices=vertices,
                             confidence=word.confidence,
-                            word=curr_word
+                            word=curr_word,
+                            para_idx=p,
+                            block_idx=b
                         )
                     )
     return words
@@ -61,37 +63,66 @@ def get_poly(a_word, response, str_type='word'):
     #             for paragraph in block.paragraphs:
 
 
-
-def get_matches(word_list, network_names, num_res=3):
+def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     """Finds the top matches in any two list of strings.
 
     Args:
-        word_list: (list of obj:`WordPoly` or str): detected words
-        network_names: (list of str): ssids scanned on airport
+        a_from_list: (list of obj:`WordPoly` or str): detected words
+        a_to_list: (list of obj:`WordPoly` or str): Words to compare to
         num_res: (int): maximum number of results to return. If an exact match
             is found, only that match is returned.
+        case_sense: (bool): Weather or not the match should be case sensitive
 
     Returns:
-        (list of tuple of str, str, float): Matches by words compared & smlrty
+        (list of tuple of WordPoly, str, str, float): Matches by words
+            compared & similarity
     """
-    # convert to strings if its a list of WordPoly
-    if type(word_list[0]) is WordPoly:
-        word_list = [x.word for x in word_list]
+    # if its a list of str, convert to WordPoly
+    # also take care of case sensitivity
+    if type(a_from_list[0]) is str:
+        if not case_sense:
+            from_list = [WordPoly(word=x.upper()) for x in a_from_list]
+        else:
+            from_list = [WordPoly(word=x) for x in a_from_list]
+    elif type(a_from_list[0]) is WordPoly:
+        if not case_sense:
+            from_list = [x.upper() for x in a_from_list]
+        else:
+            from_list = a_from_list
+    else:
+        raise Exception("you have to give me either a list of WordPoly or str")
+    if type(a_to_list[0]) is str:
+        if not case_sense:
+            to_list = [WordPoly(word=x.upper()) for x in a_to_list]
+        else:
+            to_list = [WordPoly(word=x) for x in a_to_list]
+    elif type(a_to_list[0]) is WordPoly:
+        if not case_sense:
+            to_list = [x.upper() for x in a_to_list]
+        else:
+            to_list = a_to_list
+    else:
+        raise Exception("you have to give me either a list of WordPoly or str")
 
     # high pass (return exact match)
-    for word in word_list:
-        if word in network_names:
-            return [(word, word, 1)]
+    for f_word in from_list:
+        for t_word in to_list:
+            if f_word.word == t_word.word:
+                return [Match(
+                    from_poly=f_word,
+                    to_poly=t_word,
+                    similarity=1
+                )]
 
     # medium pass (top results out of top 3's of each detected word)
     top_results = []
-    for word in word_list:
-        temp_list = [similarity(word, x) for x in network_names]
-        # Pick the top 2 for this word and put them in top_results
+    for f_word in from_list:
+        temp_list = [similarity(f_word.word, t_word.word) for t_word in to_list]
+        # Pick the top 3 for this word and put them in top_results
         for _ in range(3):
             best = temp_list[0]
             for temp in temp_list:
-                if temp[2] > best[2]:
+                if temp.similarity > best.similarity:
                     best = temp
             top_results.append(best)
             temp_list.remove(best)
@@ -100,34 +131,53 @@ def get_matches(word_list, network_names, num_res=3):
     for _ in range(num_res):
         best = top_results[0]
         for res in top_results:
-            if res[2] > best[2]:
+            if res.similarity > best.similarity:
                 best = res
         final.append(best)
         top_results.remove(best)
     return final
 
 
-def similarity(x, y):
+def similarity(a_x, a_y):
     """Assesses how similar two strings are.
 
     Hard bias for characters in the same order. Will return extremely low
-    similarity for palindromes.
+    similarity for palindromes. It is also case-sensitive.
 
     Args:
         x: (str): first string
         y: (str): second string
 
     Returns:
-        (tuple of str, str, float): The two strings compared, and similarity.
+        (obj:`Match`): The Match object--two strings compared, and similarity.
             Closer to 1 is more similar, closer to 0 is less similar.
     """
     # known issues with this algorithm:
     # hello / hellx receives the same score as hello / hell0
     # hello / hell receives the same score as hello / hell0
-    if len(x) > len(y):
-        return x, y, similarity_helper(0, 0, y, x) / len(x)
+
+    r_match = Match()
+    if type(a_x) is WordPoly:
+        r_match.from_poly=a_x
+        x = a_x.word
     else:
-        return x, y, similarity_helper(0, 0, x, y) / len(y)
+        x = a_x
+    if type(a_y) is WordPoly:
+        r_match.to_poly = a_y
+        y = a_y.word
+    else:
+        y = a_y
+
+    r_match.word_to = y
+    r_match.word_from = x
+
+    if len(x) > len(y):
+        sim = similarity_helper(0, 0, y, x) / len(x)
+    else:
+        sim = similarity_helper(0, 0, x, y) / len(y)
+
+    r_match.similarity = sim
+    return r_match
 
 
 def similarity_helper(a_low, b_low, a, b):
@@ -142,17 +192,8 @@ def similarity_helper(a_low, b_low, a, b):
 
 
 def get_passwords(words):
-    word_list = [x['word'] for x in words]
-    samples = ['password', 'PASSWORD', 'pw', 'PW']
-    p_match = get_matches(word_list, samples, num_res=1)
-    best_center = {}
-    for word in words:
-        if word['word'] == p_match[0]:
-            best_center = word['center']
-            break
-
-    # grab the closest words to this one
-    # return those words
+    suitable_keys = ['PASSWORD', 'PW', 'PIN']
+    return get_matches(words, suitable_keys, case_sense=False)
 
 
 if __name__ == '__main__':

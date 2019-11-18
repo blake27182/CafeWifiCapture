@@ -2,6 +2,47 @@ from math import sqrt
 from numpy import max, min
 
 
+class Match:
+    def __init__(self, **kwargs):
+        self.from_poly = None       # WordPoly
+        self.to_poly = None         # WordPoly
+        self.word_from = None       # str
+        self.word_to = None         # str
+        self.similarity = None      # float
+        if 'from_poly' in kwargs:
+            self.from_poly = kwargs['from_poly']
+            self.word_from = self.from_poly.word
+        elif 'word_from' in kwargs:
+            self.word_from = kwargs['word_from']
+        if 'to_poly' in kwargs:
+            self.to_poly = kwargs['to_poly']
+            self.word_to = self.to_poly.word
+        elif 'word_to' in kwargs:
+            self.word_to = kwargs['word_to']
+        if 'similarity' in kwargs:
+            self.similarity = kwargs['similarity']
+
+    def __str__(self):
+        output = (
+            '`M` {'
+            f'{self.word_from:<10} , '
+            f'{self.word_to:<10} '
+            f'{self.similarity}'
+            '}'
+        )
+        return output
+
+    def __repr__(self):
+        output = (
+            '`M` {'
+            f'{self.word_from:<10} , '
+            f'{self.word_to:<10} '
+            f'{self.similarity}'
+            '}'
+        )
+        return output
+
+
 class Vertex:
     def __init__(self, x, y):
         self.x = x
@@ -33,13 +74,27 @@ class Vertex:
         y_within = max(yss) > 0 > min(yss)
         return x_within and y_within
 
+    def __str__(self):
+        temp_x = int(self.x * 10000) / 10000
+        temp_y = int(self.y * 10000) / 10000
+        return (
+            f'`V` x: {temp_x:<10}'
+            f'y: {temp_y:<10}'
+        )
+
 
 class WordPoly:
     def __init__(self, *args, **kwargs):
         self.confidence = None      # float
         self.word = None            # string
         self.center = None          # Vertex
+        self.para_idx = None        # int
+        self.block_idx = None       # int
         self.vertices = []          # list of Vertex
+        if 'block_idx' in kwargs:
+            self.block_idx = kwargs['block_idx']
+        if 'para_idx' in kwargs:
+            self.para_idx = kwargs['para_idx']
         if 'vertices' in kwargs:
             self.vertices = kwargs['vertices']
         else:
@@ -60,8 +115,8 @@ class WordPoly:
             for i, vertex in enumerate(self.vertices):
                 x += vertex.x
                 y += vertex.y
-            x /= i
-            y /= i
+            x /= i+1
+            y /= i+1
             return Vertex(x, y)
 
     def manhattan_to_center(self, a_word_poly):
@@ -70,11 +125,57 @@ class WordPoly:
     def pythagorean_to_center(self, a_word_poly):
         return self.center.pythagorean_to(a_word_poly.center)
 
-    def print(self):
-        temp_x = int(self.center.x * 1000000) / 1000000
-        temp_y = int(self.center.y * 1000000) / 1000000
+    def upper(self):
+        self.word = self.word.upper()
+        return self
+
+    def __str__(self):
         temp_conf = int(self.confidence * 100000) / 100000
-        print(f'{self.word:10} '
-              f'{temp_conf:<8} '
-              f'x: {temp_x:<12} '
-              f'y: {temp_y:<15}')
+        output = (
+            '`WP` {'
+            f'{self.word:13} '
+            f'{temp_conf:<8} '
+        )
+        if self.block_idx is not None:
+            output += f'b: {self.block_idx:<3} '
+        if self.para_idx is not None:
+            output += f'p: {self.para_idx:<3} '
+        output += '}'
+        return output
+
+    def __repr__(self):
+        temp_conf = int(self.confidence * 100000) / 100000
+        output = (
+            '`WP` {'
+            f'{self.word:13} '
+            f'{temp_conf:<8} '
+        )
+        if self.block_idx is not None:
+            output += f'b: {self.block_idx:<3} '
+        if self.para_idx is not None:
+            output += f'p: {self.para_idx:<3} '
+        output += '}'
+        return output
+
+
+if __name__ == '__main__':
+    vert1 = Vertex(1.9484390840042,2)
+    poly1 = WordPoly(
+        word='hello',
+        vertices=[Vertex(1.9484390840042,2),
+                  Vertex(2.9484390840042,2),
+                  Vertex(2.9484390840042,1),
+                  Vertex(1.9484390840042,1)],
+        confidence=.938394543,
+        para_idx=2,
+        block_idx=0
+    )
+    poly2 = WordPoly(
+        word='there',
+    )
+    thing = Match(
+        from_poly=poly1,
+        to_poly=poly2,
+        similarity=.89
+    )
+    print(poly1)
