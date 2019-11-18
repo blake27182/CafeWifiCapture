@@ -82,6 +82,20 @@ class Vertex:
             f'y: {temp_y:<10}'
         )
 
+    def __eq__(self, other):
+        if self.x != other.x:
+            return False
+        if self.y != other.y:
+            return False
+        return True
+
+    def __ne__(self, other):
+        if self.x != other.x:
+            return True
+        if self.y != other.x:
+            return True
+        return False
+
 
 class WordPoly:
     def __init__(self, *args, **kwargs):
@@ -118,6 +132,12 @@ class WordPoly:
             x /= i+1
             y /= i+1
             return Vertex(x, y)
+
+    def get_height(self):
+        return abs(self.vertices[0].y - self.vertices[2].y)
+
+    def get_width(self):
+        return abs(self.vertices[0].x - self.vertices[2].x)
 
     def manhattan_to_center(self, a_word_poly):
         return self.center.manhattan_to(a_word_poly.center)
@@ -156,6 +176,18 @@ class WordPoly:
             output += f'p: {self.para_idx:<3} '
         output += '}'
         return output
+
+    def __eq__(self, other):
+        if len(self.vertices) != len(other.vertices):
+            return False
+        for v1, v2 in zip(self.vertices, other.vertices):
+            if v1 != v2:
+                return False
+        if self.word != other.word:
+            return False
+        # not comparing block and para idx since if they have the same vertices,
+        # and the idx info was not provided, they should be seen as equal
+        return True
 
 
 if __name__ == '__main__':

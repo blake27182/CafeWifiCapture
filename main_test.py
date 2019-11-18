@@ -18,8 +18,8 @@ def detect_document(image_path, **kwargs):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Boxing section
 
-    # box_image = box_document(image_path, response, **kwargs)
-    # box_image.show()
+    box_image = box_document(image_path, response, **kwargs)
+    box_image.show()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Word gathering section
 
@@ -37,14 +37,11 @@ def detect_document(image_path, **kwargs):
     #     print(match)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # determine password
-    # find the 'password' word location
-    # make a group containing all the words on that line
-    # if theres a colon, use the words after it
-    # if none of the words work, and there are multiple words
-    # that are close together, try concatenating them
-    # and using the result
+
     pass_matches = get_passwords(words)
-    print(pass_matches)
+    print("same line:")
+    for match in pass_matches:
+        print(match)
 
 
 if __name__ == '__main__':
@@ -58,6 +55,6 @@ if __name__ == '__main__':
     detect_document(
         path,
         box_words=True,
-        box_paragraphs=True,
+        box_paragraphs=False,
         box_letters=False
     )

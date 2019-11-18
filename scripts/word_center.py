@@ -5,14 +5,13 @@ from scripts.classes import Vertex, WordPoly, Match
 
 
 def get_word_polys(response):
-    """Parses out all the words in the response object to a list of WordPolys
+    """Parses out all the words in the response object to a list of WordPoly
 
     Args:
         response: Google API response object
 
     Returns:
-        (`list` of obj:`WordPoly`): The list of words in the document
-            as WordPolys.
+        (`list` of obj:`WordPoly`): The list of words in the document.
     """
     words = []
     for page in response.full_text_annotation.pages:
@@ -108,11 +107,11 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     for f_word in from_list:
         for t_word in to_list:
             if f_word.word == t_word.word:
-                return [Match(
+                return Match(
                     from_poly=f_word,
                     to_poly=t_word,
                     similarity=1
-                )]
+                )
 
     # medium pass (top results out of top 3's of each detected word)
     top_results = []
@@ -135,6 +134,8 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
                 best = res
         final.append(best)
         top_results.remove(best)
+    if num_res == 1:
+        return final[0]
     return final
 
 
@@ -191,9 +192,49 @@ def similarity_helper(a_low, b_low, a, b):
     return best
 
 
+def get_words_on_line(key_word, a_word_pool=None, response=None, forward=False):
+    # assuming the document was aligned straight and oriented correctly
+    if a_word_pool is None:
+        if response is None:
+            raise Exception("you must give me either word_pool or a response object")
+        word_pool = get_word_polys(response)
+    else:
+        word_pool = a_word_pool
+
+    if forward:
+        left_limit = key_word.center.x - key_word.get_width()
+    words_on_line = []
+    delta_y = key_word.get_height()
+    for word in word_pool:
+        if word == key_word:
+            continue
+        if (key_word.center.y - delta_y
+                < word.center.y
+                < key_word.center.y + delta_y):
+            if forward:
+                if word.center.x > left_limit:
+                    words_on_line.append(word)
+            else:
+                words_on_line.append(word)
+    return words_on_line
+
+
 def get_passwords(words):
+    # find the 'password' keyword location
+    # make a group containing all the words on that line
+    # if theres a colon, use the words after it
+    # if none of the words work, and there are multiple words
+    # that are close together, try concatenating them
+    # and using the result
     suitable_keys = ['PASSWORD', 'PW', 'PIN']
-    return get_matches(words, suitable_keys, case_sense=False)
+    pass_key_match = get_matches(words, suitable_keys, case_sense=False, num_res=1)
+    print(pass_key_match)
+    words_on_line = get_words_on_line(pass_key_match.from_poly,
+                                      a_word_pool=words,
+                                      forward=True)
+    return words_on_line
+
+
 
 
 if __name__ == '__main__':
