@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import sys
-from scripts.classes import Vertex, WordPoly, Match
+from scripts.classes import Vertex, WordPoly, Match, Constraint
 
 
 def get_word_polys(response):
@@ -79,34 +79,28 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     # if its a list of str, convert to WordPoly
     # also take care of case sensitivity
     if type(a_from_list[0]) is str:
-        if not case_sense:
-            from_list = [WordPoly(word=x.upper()) for x in a_from_list]
-        else:
-            from_list = [WordPoly(word=x) for x in a_from_list]
+        from_list = [WordPoly(word=x) for x in a_from_list]
     elif type(a_from_list[0]) is WordPoly:
-        if not case_sense:
-            from_list = [x.upper() for x in a_from_list]
-        else:
-            from_list = a_from_list
+        from_list = a_from_list
     else:
         raise Exception("you have to give me either a list of WordPoly or str")
     if type(a_to_list[0]) is str:
-        if not case_sense:
-            to_list = [WordPoly(word=x.upper()) for x in a_to_list]
-        else:
-            to_list = [WordPoly(word=x) for x in a_to_list]
+        to_list = [WordPoly(word=x) for x in a_to_list]
     elif type(a_to_list[0]) is WordPoly:
-        if not case_sense:
-            to_list = [x.upper() for x in a_to_list]
-        else:
-            to_list = a_to_list
+        to_list = a_to_list
     else:
         raise Exception("you have to give me either a list of WordPoly or str")
 
     # high pass (return exact match)
     for f_word in from_list:
         for t_word in to_list:
-            if f_word.word == t_word.word:
+            if case_sense and f_word.word == t_word.word:
+                return Match(
+                    from_poly=f_word,
+                    to_poly=t_word,
+                    similarity=1
+                )
+            elif f_word.word.upper() == t_word.word.upper():
                 return Match(
                     from_poly=f_word,
                     to_poly=t_word,
@@ -116,7 +110,14 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     # medium pass (top results out of top 3's of each detected word)
     top_results = []
     for f_word in from_list:
-        temp_list = [similarity(f_word.word, t_word.word) for t_word in to_list]
+        temp_list = [
+            similarity(
+                f_word.word,
+                t_word.word,
+                case_sense=case_sense
+            )
+            for t_word in to_list
+        ]
         # Pick the top 3 for this word and put them in top_results
         for _ in range(3):
             best = temp_list[0]
@@ -139,7 +140,7 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     return final
 
 
-def similarity(a_x, a_y):
+def similarity(a_x, a_y, case_sense=True):
     """Assesses how similar two strings are.
 
     Hard bias for characters in the same order. Will return extremely low
@@ -169,6 +170,10 @@ def similarity(a_x, a_y):
     else:
         y = a_y
 
+    if not case_sense:
+        x = x.upper()
+        y = y.upper()
+
     r_match.word_to = y
     r_match.word_from = x
 
@@ -192,7 +197,8 @@ def similarity_helper(a_low, b_low, a, b):
     return best
 
 
-def get_words_on_line(key_word, a_word_pool=None, response=None, forward=False):
+def get_words_from_pool(key_word, a_word_pool=None, response=None, right=False,
+                        left=False, above=False, below=False):
     # assuming the document was aligned straight and oriented correctly
     if a_word_pool is None:
         if response is None:
@@ -201,22 +207,40 @@ def get_words_on_line(key_word, a_word_pool=None, response=None, forward=False):
     else:
         word_pool = a_word_pool
 
-    if forward:
-        left_limit = key_word.center.x - key_word.get_width()
-    words_on_line = []
-    delta_y = key_word.get_height()
+    pool_constraint = Constraint()
+
+    if right:
+        def constrain_right(a_word):
+            left_max = key_word.center.x - key_word.get_width()
+            return a_word.center.x > left_max
+        pool_constraint.add_constraint(constrain_right)
+
+    if left:
+        def constrain_left(a_word):
+            right_max = key_word.center.x + key_word.get_width()
+            return a_word.center.x < right_max
+        pool_constraint.add_constraint(constrain_left)
+
+    if above:
+        def constrain_above(a_word):
+            lowest = key_word.center.y + key_word.get_height()
+            return a_word.center.y < lowest     # coords are in 4th quadrant
+        pool_constraint.add_constraint(constrain_above)
+
+    if below:
+        def constrain_below(a_word):
+            highest = key_word.center.y - key_word.get_height()
+            return a_word.center.y > highest    # coords are in 4th quadrant
+        pool_constraint.add_constraint(constrain_below)
+
+    words_from_pool = []
     for word in word_pool:
         if word == key_word:
             continue
-        if (key_word.center.y - delta_y
-                < word.center.y
-                < key_word.center.y + delta_y):
-            if forward:
-                if word.center.x > left_limit:
-                    words_on_line.append(word)
-            else:
-                words_on_line.append(word)
-    return words_on_line
+        if pool_constraint.satisfies(word):
+            words_from_pool.append(word)
+
+    return words_from_pool
 
 
 def get_passwords(words):
@@ -226,15 +250,26 @@ def get_passwords(words):
     # if none of the words work, and there are multiple words
     # that are close together, try concatenating them
     # and using the result
+
+    # find a suitable password key
     suitable_keys = ['PASSWORD', 'PW', 'PIN']
-    pass_key_match = get_matches(words, suitable_keys, case_sense=False, num_res=1)
-    print(pass_key_match)
-    words_on_line = get_words_on_line(pass_key_match.from_poly,
-                                      a_word_pool=words,
-                                      forward=True)
-    return words_on_line
+    pass_key_match = get_matches(
+        words,
+        suitable_keys,
+        case_sense=False,
+        num_res=1
+    )
+    print('suitable_key_match:', pass_key_match)
 
-
+    # get the words in the scope of the suitable key
+    # this scope might change or we might use multiple scopes
+    words_in_scope = get_words_from_pool(
+        pass_key_match.from_poly,
+        words,
+        right=True,
+        below=True,
+        above=True,
+    )
 
 
 if __name__ == '__main__':

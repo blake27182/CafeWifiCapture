@@ -116,7 +116,7 @@ class WordPoly:
         if 'center' in kwargs:
             self.center = kwargs['center']
         else:
-            self.center = self.get_center()
+            self.get_center()
         if 'confidence' in kwargs:
             self.confidence = kwargs['confidence']
         if 'word' in kwargs:
@@ -131,7 +131,8 @@ class WordPoly:
                 y += vertex.y
             x /= i+1
             y /= i+1
-            return Vertex(x, y)
+            self.center = Vertex(x, y)
+            return self.center
 
     def get_height(self):
         return abs(self.vertices[0].y - self.vertices[2].y)
@@ -144,10 +145,6 @@ class WordPoly:
 
     def pythagorean_to_center(self, a_word_poly):
         return self.center.pythagorean_to(a_word_poly.center)
-
-    def upper(self):
-        self.word = self.word.upper()
-        return self
 
     def __str__(self):
         temp_conf = int(self.confidence * 100000) / 100000
@@ -190,6 +187,20 @@ class WordPoly:
         return True
 
 
+class Constraint:
+    def __init__(self, *args):
+        self.constraints = [*args]     # list of constraint function pointers
+
+    def satisfies(self, obj):
+        for constraint in self.constraints:
+            if not constraint(obj):
+                return False
+        return True
+
+    def add_constraint(self, con):
+        self.constraints.append(con)
+
+
 if __name__ == '__main__':
     vert1 = Vertex(1.9484390840042,2)
     poly1 = WordPoly(
@@ -211,3 +222,4 @@ if __name__ == '__main__':
         similarity=.89
     )
     print(poly1)
+

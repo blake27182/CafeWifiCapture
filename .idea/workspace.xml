@@ -17,11 +17,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main_test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="247">
-                  <caret line="46" column="23" lean-forward="true" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+                <state relative-caret-position="369">
+                  <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -32,17 +32,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../../test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" selection-start-line="11" selection-end-line="11" />
+                <state relative-caret-position="119">
+                  <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-16">
-                  <caret line="175" column="1" lean-forward="true" selection-start-line="175" selection-start-column="1" selection-end-line="176" selection-end-column="1" />
+                <state relative-caret-position="416">
+                  <caret line="271" column="5" lean-forward="true" selection-start-line="271" selection-start-column="5" selection-end-line="271" selection-end-column="5" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -57,8 +57,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/classes.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="341">
-                  <caret line="143" column="21" selection-start-line="143" selection-start-column="21" selection-end-line="143" selection-end-column="21" />
+                <state relative-caret-position="194">
+                  <caret line="146" column="61" selection-start-line="146" selection-start-column="61" selection-end-line="146" selection-end-column="61" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -112,6 +112,7 @@
       <find>get_poly</find>
       <find>x</find>
       <find>paragra</find>
+      <find>case_sense</find>
     </findStrings>
     <replaceStrings>
       <replace>image_obj</replace>
@@ -133,9 +134,9 @@
         <option value="$PROJECT_DIR$/scripts/bounding_center.py" />
         <option value="$PROJECT_DIR$/scripts/network_center.py" />
         <option value="$PROJECT_DIR$/../../test.py" />
-        <option value="$PROJECT_DIR$/scripts/word_center.py" />
-        <option value="$PROJECT_DIR$/main_test.py" />
         <option value="$PROJECT_DIR$/scripts/classes.py" />
+        <option value="$PROJECT_DIR$/main_test.py" />
+        <option value="$PROJECT_DIR$/scripts/word_center.py" />
       </list>
     </option>
   </component>
@@ -382,7 +383,21 @@
       <option name="project" value="LOCAL" />
       <updated>1574030740011</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="redesigned get_matches to be much more versatile. My overall code scheme has shifted from prioritizing working with primitives like strings to a more object-oriented design. This makes it a lot easier to work with multiple pieces of information that go along with each other in a package. I was previously using tuples to organize this data but it became too difficult to maintain. Using my own custom objects with keyword arguments made more sense">
+      <created>1574102463759</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1574102463759</updated>
+    </task>
+    <task id="LOCAL-00012" summary="can get words on the same line as another word, or on the same line and only to the right of a word. Next addition will be a more general form that allows looking below a word.">
+      <created>1574105528007</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1574105528007</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -394,7 +409,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32881" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3152401" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.27870563" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.35699373" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -459,7 +474,9 @@
     <MESSAGE value="Saved a list of available networks to a file" />
     <MESSAGE value="Made best-fit matches between words and network names. Fairly accurate at assesing quantitative similarity" />
     <MESSAGE value="organized a lot of my code into a better structure. Im now using my own class vertex and wordpoly to make working with them easier." />
-    <option name="LAST_COMMIT_MESSAGE" value="organized a lot of my code into a better structure. Im now using my own class vertex and wordpoly to make working with them easier." />
+    <MESSAGE value="redesigned get_matches to be much more versatile. My overall code scheme has shifted from prioritizing working with primitives like strings to a more object-oriented design. This makes it a lot easier to work with multiple pieces of information that go along with each other in a package. I was previously using tuples to organize this data but it became too difficult to maintain. Using my own custom objects with keyword arguments made more sense" />
+    <MESSAGE value="can get words on the same line as another word, or on the same line and only to the right of a word. Next addition will be a more general form that allows looking below a word." />
+    <option name="LAST_COMMIT_MESSAGE" value="can get words on the same line as another word, or on the same line and only to the right of a word. Next addition will be a more general form that allows looking below a word." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -471,6 +488,15 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>word.word == 'PIN'</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/google/auth/_service_account_info.py">
@@ -540,25 +566,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="175" column="1" lean-forward="true" selection-start-line="175" selection-start-column="1" selection-end-line="176" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="143" column="21" selection-start-line="143" selection-start-column="21" selection-end-line="143" selection-end-column="21" />
+        <state relative-caret-position="194">
+          <caret line="146" column="61" selection-start-line="146" selection-start-column="61" selection-end-line="146" selection-end-column="61" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -567,10 +583,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="46" column="23" lean-forward="true" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+        <state relative-caret-position="369">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="271" column="5" lean-forward="true" selection-start-line="271" selection-start-column="5" selection-end-line="271" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
