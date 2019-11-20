@@ -121,6 +121,8 @@ def get_corners(
 
 
 def box_document(a_path, response, **kwargs):
+
+
     boxes = get_corners(response, **kwargs)
     box_image = Image.open(a_path)
 

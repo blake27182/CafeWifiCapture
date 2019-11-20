@@ -19,6 +19,13 @@ def get_ssid_list():
     return sorted(ssids)
 
 
+def sign_in(ssid, password):
+    # try to sign in
+    # if it works, return a True
+    # if not, return a False
+    pass
+
+
 if __name__ == '__main__':
     network_names = get_ssid_list()
     for name in network_names:

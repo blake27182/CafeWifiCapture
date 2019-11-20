@@ -185,16 +185,47 @@ class WordPoly:
 
 
 class Constraint:
+    """An easy way to build constraint satisfaction sets
+
+    I'm quite proud that I thought of this! There may indeed
+    be more efficient ways of passing variables through
+    a series of constraints. This is one thats simple and easy.
+
+    """
     def __init__(self, *args):
+        """You can build this instance with the constraints here, or add
+        them with add_constraint.
+
+        Args:
+            *args: (function pointers): constraints
+        """
         self.constraints = [*args]     # list of constraint function pointers
 
     def satisfies(self, obj):
+        """Test an object on your constraints.
+
+        Args:
+            obj: (obj:any): Any object to test on your set of constraints
+
+        Returns:
+            (bool): Does it satisfy them or not?
+
+        """
         for constraint in self.constraints:
             if not constraint(obj):
                 return False
         return True
 
     def add_constraint(self, con):
+        """Add a constraint to this instance.
+
+        The function of the pointer you pass here must have a parameter to
+        accept any objects you wish to test with it.
+
+        Args:
+            con: (function pointer): Constraint to add
+
+        """
         self.constraints.append(con)
 
 

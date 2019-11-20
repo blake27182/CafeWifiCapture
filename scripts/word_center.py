@@ -293,6 +293,9 @@ def proximity_sort(anchor, words, bias):
     # from 3 to 10, giving us a typical depth of 3 or so.
     # If this algorithm becomes too expensive, it will probably be because
     # of the cost of calculating distance for each comparison.
+
+    # would like to write a couple test cases for this. I know it generally
+    # works, but its hard to tell if there are small discrepancies
     prox_sort_helper(0, len(words)-1, words, anchor, bias)
 
 
