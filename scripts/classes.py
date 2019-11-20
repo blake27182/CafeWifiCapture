@@ -140,12 +140,6 @@ class WordPoly:
     def get_width(self):
         return abs(self.vertices[0].x - self.vertices[2].x)
 
-    def manhattan_to(self, a_word_poly):
-        return self.center.manhattan_to(a_word_poly.center)
-
-    def pythagorean_to(self, a_word_poly):
-        return self.center.pythagorean_to(a_word_poly.center)
-
     def __str__(self):
         temp_conf = int(self.confidence * 100000) / 100000
         output = (

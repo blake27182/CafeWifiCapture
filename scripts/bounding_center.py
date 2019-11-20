@@ -1,6 +1,4 @@
 from PIL import Image
-from google.cloud import vision
-import io
 
 
 def main_test():
@@ -8,8 +6,21 @@ def main_test():
 
 
 def place_box(a_corners, image_obj, color=(0, 254, 0)):
+    """Draws a box with the given corners on the image object.
+
+    The width of the lines is determined by the dimensions of the image.
+
+    Args:
+        a_corners: (`list` of `dict`): Top-left and bottom-right corners
+        image_obj: (obj:`PIL.Image`): Image object to draw on
+        color: (`tuple` of int): Color in RGB you want the box to be
+
+    Returns:
+        (obj:`PIL.Image`): The image after being drawn on
+
+    """
     # make sure corners comply with list of dict format
-    # top left and bottom right corners only
+    # top-left and bottom-right corners only
     # e.g. [{"x": 50, "y": 100},
     #       {"x": 80, "y": 150}]
 
@@ -38,7 +49,26 @@ def place_box(a_corners, image_obj, color=(0, 254, 0)):
     return image_obj
 
 
-def get_corners(response, box_words=True, box_letters=False, box_paragraphs=False):
+def get_corners(
+        response,
+        box_words=True,
+        box_letters=False,
+        box_paragraphs=False
+):
+    """Parses out the corner information required by the place_box function
+
+    Args:
+        response: (Google API response object):
+        box_words: (bool): Include words in parsing
+        box_letters: (bool): Include letters in parsing
+        box_paragraphs: (bool): Include paragraphs in parsing
+
+    Returns:
+        (`list` of `list` of `dict`): List of pairs of corners.
+
+    """
+    # should probably refactor this to use our Vertex class
+
     boxes = []  # list of list of dict
 
     for page in response.full_text_annotation.pages:

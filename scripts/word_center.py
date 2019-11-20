@@ -1,6 +1,4 @@
 import math
-import numpy as np
-import sys
 from scripts.classes import Vertex, WordPoly, Match, Constraint
 
 
@@ -8,7 +6,7 @@ def get_word_polys(response):
     """Parses out all the words in the response object to a list of WordPoly
 
     Args:
-        response: Google API response object
+        response: (Google API response object): The data to process
 
     Returns:
         (`list` of obj:`WordPoly`): The list of words in the document.
@@ -147,8 +145,9 @@ def similarity(a_x, a_y, case_sense=True):
     similarity for palindromes. It is also case-sensitive.
 
     Args:
-        x: (str): first string
-        y: (str): second string
+        a_x: (str): First string
+        a_y: (str): Second string
+        case_sense: (bool): Case sensitivity on or off
 
     Returns:
         (obj:`Match`): The Match object--two strings compared, and similarity.
@@ -187,6 +186,18 @@ def similarity(a_x, a_y, case_sense=True):
 
 
 def similarity_helper(a_low, b_low, a, b):
+    """Recursive helper function for similarity.
+
+    Args:
+        a_low: (int): Low index on string a
+        b_low: (int): Low index on string b
+        a: (str): First string
+        b: (str): Second string
+
+    Returns:
+        (float): highest similarity found at this depth
+
+    """
     best = 0
     for i in range(a_low, len(a)):          # try every letter as the first letter
         for j in range(b_low, len(b)):      # for every letter in a, check it against b
@@ -199,10 +210,34 @@ def similarity_helper(a_low, b_low, a, b):
 
 def get_words_from_pool(key_word, a_word_pool=None, response=None, right=False,
                         left=False, above=False, below=False):
+    """Gets words based on a given location scope relative to key_word.
+
+    Uses subtractive boolean unions to scope to an area of the image.
+    i.e. If you want to find words in the upper right quadrant,
+    (remember key_word is the origin) set above and right to True.
+        It is important to know that each exclusion doesn't originate at
+    key_word.center. It actually will start either left of or above etc.
+    so that the key_word itself would be included in the results. This is
+    done to allow contradictions (like above=True, below=True) to return
+    the words between those termination lines.
+
+    Args:
+        key_word: (obj:`WordPoly`): Origin for scoping around.
+        a_word_pool: (`list` of obj:`WordPoly`): Words to choose from
+        response: (Google API response object): Words to choose from
+        right: (bool): exclude left
+        left: (bool): exclude right
+        above: (bool): exclude below
+        below: (bool): exclude above
+
+    Returns:
+        (`list` of obj:`WordPoly`): The words you asked for
+    """
     # assuming the document was aligned straight and oriented correctly
     if a_word_pool is None:
         if response is None:
-            raise Exception("you must give me either word_pool or a response object")
+            raise Exception("you must give me either word_pool "
+                            "or a response object")
         word_pool = get_word_polys(response)
     else:
         word_pool = a_word_pool
@@ -244,10 +279,33 @@ def get_words_from_pool(key_word, a_word_pool=None, response=None, right=False,
 
 
 def proximity_sort(anchor, words, bias):
+    """Quick-sort based algorithm sorts in-place closest to furthest
+
+    Args:
+        anchor: (obj:`WordPoly`): The word every distance will be relative to
+        words: (`list` of obj:`WordPoly`): The words to sort
+        bias: (float): Alignment bias when calculating proximity.
+            1 is square, (0,1) prioritizes vertical words, (1,∞) for horizontal
+    """
+    # decided to use a quick-sort because its great for in-place sorting
+    # and has O(logn) time complexity. Not too worried about the space
+    # complexity by using recursion because our list will usually range
+    # from 3 to 10, giving us a typical depth of 3 or so.
+    # If this algorithm becomes too expensive, it will probably be because
+    # of the cost of calculating distance for each comparison.
     prox_sort_helper(0, len(words)-1, words, anchor, bias)
 
 
 def prox_sort_helper(low, high, words, anchor, bias):
+    """Recursive helper function for proximity_sort
+
+    Args:
+        low: (int): Low index (inclusive)
+        high: (int): High index (inclusive)
+        words: (`list` of obj:`WordPoly`): Words we are sorting
+        anchor: (obj:`WordPoly`): Word to calculate distance relative to
+        bias: (float): Alignment bias for calculating distance (see previous)
+    """
     partition = words[low]
     i = low + 1
     j = high
@@ -282,6 +340,22 @@ def prox_sort_helper(low, high, words, anchor, bias):
 
 
 def prox_calc(f_word, t_word, bias=1):
+    """Calculates the distance between two given words.
+
+    Uses the manhattan distance instead of pythagorean to discourage diagonal
+    words. We also use a bias for choosing which axis to "squish". If you want
+    to look for words on the same line, choose a high bias (1,∞). If you want
+    to find words in a column, use a low bias (0,1).
+
+    Args:
+        f_word: (obj:`WordPoly`): First word
+        t_word: (obj:`WordPoly`): Second word
+        bias: (float): Alignment bias (see description)
+
+    Returns:
+        (float): Distance between the given word center vertices
+
+    """
     x_delta = abs(f_word.center.x - t_word.center.x)
     y_delta = abs(f_word.center.y - t_word.center.y)
     y_delta *= bias
@@ -319,9 +393,6 @@ def get_passwords(words):
         above=True,
     )
     proximity_sort(pass_key_match.from_poly, words_in_scope, 10)
-    # print('horozontal sort:')
-    # for word in words_in_scope:
-    #     print(word)
     for word in words_in_scope:
         if len(word) > 5:
             final_passwords.append(word)

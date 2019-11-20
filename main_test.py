@@ -2,7 +2,6 @@ from google.cloud import vision
 import io
 from scripts.bounding_center import box_document
 from scripts.word_center import *
-from scripts.network_center import get_ssid_list
 
 
 def detect_document(image_path, **kwargs):

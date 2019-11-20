@@ -4,6 +4,7 @@
     <list default="true" id="cbd145ae-a1c3-487c-b697-557a48b702d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/bounding_center.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/bounding_center.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/classes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/word_center.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/word_center.py" afterDir="false" />
     </list>
@@ -20,8 +21,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main_test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="418">
-                  <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+                <state relative-caret-position="51">
+                  <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -41,8 +42,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-87">
-                  <caret line="311" column="4" selection-start-line="311" selection-start-column="4" selection-end-line="311" selection-end-column="4" />
+                <state relative-caret-position="136">
+                  <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -57,8 +58,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/classes.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="398">
-                  <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
+                <state relative-caret-position="-594">
+                  <caret line="140" column="59" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="59" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -69,11 +70,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/bounding_center.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="646">
-                  <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                  </folding>
+                <state>
+                  <caret column="21" selection-start-column="21" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
@@ -131,12 +129,12 @@
         <option value="$PROJECT_DIR$/network_center.py" />
         <option value="$PROJECT_DIR$/word_center.py" />
         <option value="$PROJECT_DIR$/../Encoding/image_generator.py" />
-        <option value="$PROJECT_DIR$/scripts/bounding_center.py" />
         <option value="$PROJECT_DIR$/scripts/network_center.py" />
         <option value="$PROJECT_DIR$/../../test.py" />
-        <option value="$PROJECT_DIR$/scripts/classes.py" />
+        <option value="$PROJECT_DIR$/scripts/bounding_center.py" />
         <option value="$PROJECT_DIR$/main_test.py" />
         <option value="$PROJECT_DIR$/scripts/word_center.py" />
+        <option value="$PROJECT_DIR$/scripts/classes.py" />
       </list>
     </option>
   </component>
@@ -149,25 +147,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="HandwritingTests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HandwritingTests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HandwritingTests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HandwritingTests" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -404,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574133204289</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Got it to the point where we can scope and sort words to the right (same line) of the password key, as well as scope and sort looking below. The get_passwords function returns the top 2 results using this method. At this point, it is important that the image is already formatted correctly (straight and right-side-up)">
+      <created>1574227944289</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1574227944289</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -416,7 +403,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32881" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27870563" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.27870563" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.35699373" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -484,7 +471,8 @@
     <MESSAGE value="redesigned get_matches to be much more versatile. My overall code scheme has shifted from prioritizing working with primitives like strings to a more object-oriented design. This makes it a lot easier to work with multiple pieces of information that go along with each other in a package. I was previously using tuples to organize this data but it became too difficult to maintain. Using my own custom objects with keyword arguments made more sense" />
     <MESSAGE value="can get words on the same line as another word, or on the same line and only to the right of a word. Next addition will be a more general form that allows looking below a word." />
     <MESSAGE value="can now scope to a given area relative to a given word. This allows us to grab words from beside or below a password keyword, narrowing the amount of work we have to do later with sorting, filtering, or concatenating words" />
-    <option name="LAST_COMMIT_MESSAGE" value="can now scope to a given area relative to a given word. This allows us to grab words from beside or below a password keyword, narrowing the amount of work we have to do later with sorting, filtering, or concatenating words" />
+    <MESSAGE value="Got it to the point where we can scope and sort words to the right (same line) of the password key, as well as scope and sort looking below. The get_passwords function returns the top 2 results using this method. At this point, it is important that the image is already formatted correctly (straight and right-side-up)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got it to the point where we can scope and sort words to the right (same line) of the password key, as well as scope and sort looking below. The get_passwords function returns the top 2 results using this method. At this point, it is important that the image is already formatted correctly (straight and right-side-up)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -564,11 +552,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/bounding_center.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="21" selection-start-column="21" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -579,20 +564,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/classes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="51">
+          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -601,10 +576,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-87">
-          <caret line="311" column="4" selection-start-line="311" selection-start-column="4" selection-end-line="311" selection-end-column="4" />
+        <state relative-caret-position="136">
+          <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/classes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-594">
+          <caret line="140" column="59" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
