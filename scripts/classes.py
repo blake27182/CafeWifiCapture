@@ -140,10 +140,10 @@ class WordPoly:
     def get_width(self):
         return abs(self.vertices[0].x - self.vertices[2].x)
 
-    def manhattan_to_center(self, a_word_poly):
+    def manhattan_to(self, a_word_poly):
         return self.center.manhattan_to(a_word_poly.center)
 
-    def pythagorean_to_center(self, a_word_poly):
+    def pythagorean_to(self, a_word_poly):
         return self.center.pythagorean_to(a_word_poly.center)
 
     def __str__(self):
@@ -185,6 +185,9 @@ class WordPoly:
         # not comparing block and para idx since if they have the same vertices,
         # and the idx info was not provided, they should be seen as equal
         return True
+
+    def __len__(self):
+        return len(self.word)
 
 
 class Constraint:

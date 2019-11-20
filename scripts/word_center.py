@@ -243,6 +243,51 @@ def get_words_from_pool(key_word, a_word_pool=None, response=None, right=False,
     return words_from_pool
 
 
+def proximity_sort(anchor, words, bias):
+    prox_sort_helper(0, len(words)-1, words, anchor, bias)
+
+
+def prox_sort_helper(low, high, words, anchor, bias):
+    partition = words[low]
+    i = low + 1
+    j = high
+    while i < j:
+        while (
+                prox_calc(anchor, words[j], bias)
+                > prox_calc(anchor, partition, bias)
+                and j > i
+        ):
+            j -= 1
+        while (
+                prox_calc(anchor, words[i], bias)
+                < prox_calc(anchor, partition, bias)
+                and i < j
+        ):
+            i += 1
+
+        temp = words[j]
+        words[j] = words[i]
+        words[i] = temp
+
+    if (prox_calc(anchor, words[i], bias)
+            < prox_calc(anchor, partition, bias)):
+        temp = words[i]
+        words[i] = partition
+        words[low] = temp
+
+    if i - low > 1:
+        prox_sort_helper(low, i-1, words, anchor, bias)
+    if high - i > 0:
+        prox_sort_helper(i, high, words, anchor, bias)
+
+
+def prox_calc(f_word, t_word, bias=1):
+    x_delta = abs(f_word.center.x - t_word.center.x)
+    y_delta = abs(f_word.center.y - t_word.center.y)
+    y_delta *= bias
+    return math.sqrt(x_delta**2 + y_delta**2)
+
+
 def get_passwords(words):
     # find the 'password' keyword location
     # make a group containing all the words on that line
@@ -263,6 +308,9 @@ def get_passwords(words):
 
     # get the words in the scope of the suitable key
     # this scope might change or we might use multiple scopes
+    final_passwords = []
+
+    # horizontal scope and sort
     words_in_scope = get_words_from_pool(
         pass_key_match.from_poly,
         words,
@@ -270,47 +318,35 @@ def get_passwords(words):
         below=True,
         above=True,
     )
+    proximity_sort(pass_key_match.from_poly, words_in_scope, 10)
+    # print('horozontal sort:')
+    # for word in words_in_scope:
+    #     print(word)
+    for word in words_in_scope:
+        if len(word) > 5:
+            final_passwords.append(word)
+            break
+
+    # vertical scope and sort
+    words_in_scope = get_words_from_pool(
+        pass_key_match.from_poly,
+        words,
+        right=True,
+        below=True,
+        left=True,
+    )
+    proximity_sort(pass_key_match.from_poly, words_in_scope, .5)
+    # print('vertical sort:')
+    # for word in words_in_scope:
+    #     print(word)
+    for word in words_in_scope:
+        if len(word) > 5:
+            final_passwords.append(word)
+            break
+
+    return final_passwords
 
 
 if __name__ == '__main__':
-    a_poly = {
-        "vertices": [
-            {
-                "x": 195,
-                "y": 59
-            },
-            {
-                "x": 408,
-                "y": 59
-            },
-            {
-                "x": 408,
-                "y": 155
-            },
-            {
-                "x": 195,
-                "y": 155
-            }
-        ]
-    }
-    b_poly = {
-        "vertices": [
-            {
-                "x": 360,
-                "y": 59
-            },
-            {
-                "x": 408,
-                "y": 59
-            },
-            {
-                "x": 408,
-                "y": 102
-            },
-            {
-                "x": 360,
-                "y": 102
-            }
-        ]
-    }
+    pass
 

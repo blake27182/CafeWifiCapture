@@ -18,8 +18,8 @@ def detect_document(image_path, **kwargs):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Boxing section
 
-    # box_image = box_document(image_path, response, **kwargs)
-    # box_image.show()
+    box_image = box_document(image_path, response, **kwargs)
+    box_image.show()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Word gathering section
 
@@ -38,16 +38,16 @@ def detect_document(image_path, **kwargs):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # determine password
 
-    pass_matches = get_passwords(words)
-    print("password scope:")
-    for match in pass_matches:
-        print(match)
+    passwords = get_passwords(words)
+    print("passwords:")
+    for word in passwords:
+        print(word)
 
 
 if __name__ == '__main__':
-    # path = "src_images/devocion_test.jpg"
+    path = "src_images/devocion_test.jpg"
     # path = 'src_images/skytown.jpg'
-    path = 'src_images/skytown2.jpg'
+    # path = 'src_images/skytown2.jpg'
     # path = 'src_images/handwriting.png'
     # path = 'src_images/rand_words.jpg'
     # path = 'src_images/router.jpg'
