@@ -4,8 +4,7 @@
     <list default="true" id="cbd145ae-a1c3-487c-b697-557a48b702d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/bounding_center.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/bounding_center.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/network_center.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/network_center.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/word_center.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/word_center.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +20,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main_test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+                <state relative-caret-position="787">
+                  <caret line="52" column="42" lean-forward="true" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -33,8 +32,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../../test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="119">
-                  <caret line="7" selection-start-line="7" selection-end-line="7" />
+                <state relative-caret-position="476">
+                  <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
                 </state>
               </provider>
             </entry>
@@ -42,8 +41,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
+                <state relative-caret-position="387">
+                  <caret line="317" column="18" selection-start-line="317" selection-start-column="18" selection-end-line="317" selection-end-column="18" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -55,11 +54,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/classes.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-594">
-                  <caret line="140" column="59" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="59" />
+                <state relative-caret-position="2675">
+                  <caret line="196" column="33" selection-start-line="196" selection-start-column="33" selection-end-line="196" selection-end-column="33" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -70,17 +69,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/bounding_center.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="21" selection-start-column="21" selection-end-column="21" />
+                <state relative-caret-position="686">
+                  <caret line="123" selection-start-line="123" selection-end-line="123" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/network_center.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+                <state relative-caret-position="323">
+                  <caret line="19" selection-start-line="19" selection-end-line="19" />
                 </state>
               </provider>
             </entry>
@@ -111,6 +110,7 @@
       <find>x</find>
       <find>paragra</find>
       <find>case_sense</find>
+      <find>get_corners</find>
     </findStrings>
     <replaceStrings>
       <replace>image_obj</replace>
@@ -129,12 +129,12 @@
         <option value="$PROJECT_DIR$/network_center.py" />
         <option value="$PROJECT_DIR$/word_center.py" />
         <option value="$PROJECT_DIR$/../Encoding/image_generator.py" />
-        <option value="$PROJECT_DIR$/scripts/network_center.py" />
-        <option value="$PROJECT_DIR$/../../test.py" />
-        <option value="$PROJECT_DIR$/scripts/bounding_center.py" />
-        <option value="$PROJECT_DIR$/main_test.py" />
-        <option value="$PROJECT_DIR$/scripts/word_center.py" />
         <option value="$PROJECT_DIR$/scripts/classes.py" />
+        <option value="$PROJECT_DIR$/scripts/bounding_center.py" />
+        <option value="$PROJECT_DIR$/scripts/network_center.py" />
+        <option value="$PROJECT_DIR$/main_test.py" />
+        <option value="$PROJECT_DIR$/../../test.py" />
+        <option value="$PROJECT_DIR$/scripts/word_center.py" />
       </list>
     </option>
   </component>
@@ -152,7 +152,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.toDoOptions" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -166,7 +166,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main_test">
+  <component name="RunManager" selected="Python.test">
     <configuration name="classes" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="HandwritingTests" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -274,8 +274,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_test" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.main_test" />
         <item itemvalue="Python.classes" />
         <item itemvalue="Python.image_generator" />
         <item itemvalue="Python.network_center" />
@@ -391,8 +391,31 @@
       <option name="project" value="LOCAL" />
       <updated>1574227944289</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Documentation update!">
+      <created>1574285695958</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1574285695958</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Documentation and made a couple changes to the WordPoly class">
+      <created>1574288807313</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1574288807313</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -403,11 +426,11 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32881" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.27870563" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27870563" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.35699373" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32985386" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3295099" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -472,10 +495,19 @@
     <MESSAGE value="can get words on the same line as another word, or on the same line and only to the right of a word. Next addition will be a more general form that allows looking below a word." />
     <MESSAGE value="can now scope to a given area relative to a given word. This allows us to grab words from beside or below a password keyword, narrowing the amount of work we have to do later with sorting, filtering, or concatenating words" />
     <MESSAGE value="Got it to the point where we can scope and sort words to the right (same line) of the password key, as well as scope and sort looking below. The get_passwords function returns the top 2 results using this method. At this point, it is important that the image is already formatted correctly (straight and right-side-up)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got it to the point where we can scope and sort words to the right (same line) of the password key, as well as scope and sort looking below. The get_passwords function returns the top 2 results using this method. At this point, it is important that the image is already formatted correctly (straight and right-side-up)" />
+    <MESSAGE value="Documentation update!" />
+    <MESSAGE value="Documentation and made a couple changes to the WordPoly class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation and made a couple changes to the WordPoly class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../test.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -543,53 +575,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../test.py">
+    <entry file="file://$PROJECT_DIR$/scripts/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="2675">
+          <caret line="196" column="33" selection-start-line="196" selection-start-column="33" selection-end-line="196" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/bounding_center.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="21" selection-start-column="21" selection-end-column="21" />
+        <state relative-caret-position="686">
+          <caret line="123" selection-start-line="123" selection-end-line="123" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/network_center.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        <state relative-caret-position="323">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+        <state relative-caret-position="787">
+          <caret line="52" column="42" lean-forward="true" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
+    <entry file="file://$PROJECT_DIR$/../../test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="476">
+          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/classes.py">
+    <entry file="file://$PROJECT_DIR$/scripts/word_center.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-594">
-          <caret line="140" column="59" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="59" />
+        <state relative-caret-position="387">
+          <caret line="317" column="18" selection-start-line="317" selection-start-column="18" selection-end-line="317" selection-end-column="18" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

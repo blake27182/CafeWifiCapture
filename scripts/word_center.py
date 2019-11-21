@@ -314,17 +314,17 @@ def prox_sort_helper(low, high, words, anchor, bias):
     j = high
     while i < j:
         while (
-                prox_calc(anchor, words[j], bias)
-                > prox_calc(anchor, partition, bias)
-                and j > i
-        ):
-            j -= 1
-        while (
                 prox_calc(anchor, words[i], bias)
-                < prox_calc(anchor, partition, bias)
+                <= prox_calc(anchor, partition, bias)
                 and i < j
         ):
             i += 1
+        while (
+                prox_calc(anchor, words[j], bias)
+                > prox_calc(anchor, partition, bias)
+                and i < j
+        ):
+            j -= 1
 
         temp = words[j]
         words[j] = words[i]
@@ -374,7 +374,7 @@ def get_passwords(words):
     # and using the result
 
     # find a suitable password key
-    suitable_keys = ['PASSWORD', 'PW', 'PIN']
+    suitable_keys = ['PASSWORD', 'PW', 'PIN', 'PWRD']
     pass_key_match = get_matches(
         words,
         suitable_keys,

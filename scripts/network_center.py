@@ -23,7 +23,9 @@ def sign_in(ssid, password):
     # try to sign in
     # if it works, return a True
     # if not, return a False
-    pass
+    command = f'networksetup -setairportnetwork Airport {ssid} {password}'
+    os.system(command)
+    # todo test this function at home where we know the password and such
 
 
 if __name__ == '__main__':
