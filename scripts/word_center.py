@@ -110,8 +110,8 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     for f_word in from_list:
         temp_list = [
             similarity(
-                f_word.word,
-                t_word.word,
+                f_word,
+                t_word,
                 case_sense=case_sense
             )
             for t_word in to_list
@@ -296,7 +296,8 @@ def proximity_sort(anchor, words, bias):
 
     # would like to write a couple test cases for this. I know it generally
     # works, but its hard to tell if there are small discrepancies
-    prox_sort_helper(0, len(words)-1, words, anchor, bias)
+    if len(words) > 1:
+        prox_sort_helper(0, len(words)-1, words, anchor, bias)
 
 
 def prox_sort_helper(low, high, words, anchor, bias):

@@ -17,8 +17,8 @@ def detect_document(image_path, **kwargs):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Boxing section
 
-    # box_image = box_document(image_path, response, **kwargs)
-    # box_image.show()
+    box_image = box_document(image_path, response, **kwargs)
+    box_image.show()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Word gathering section
 
