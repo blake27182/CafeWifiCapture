@@ -4,8 +4,7 @@ import os
 def get_ssid_list():
     if os.path.exists("ssid_scan.txt"):
         os.remove('ssid_scan.txt')
-    os.system("/System/Library/PrivateFrameworks/Apple80211.framework/"
-              "Versions/Current/Resources/airport -s >> ssid_scan.txt")
+    os.system("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s >> ssid_scan.txt")
 
     with open('ssid_scan.txt', 'r') as f:
         ssids = []

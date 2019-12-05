@@ -32,9 +32,6 @@ def get_word_polys(response):
     return words
 
 
-# def word_proximity(a, b, response):
-
-
 def get_poly(a_word, response, str_type='word'):
     """Gets the WordPoly version of a given string.
 
@@ -93,17 +90,17 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
     for f_word in from_list:
         for t_word in to_list:
             if case_sense and f_word.word == t_word.word:
-                return Match(
+                return [Match(
                     from_poly=f_word,
                     to_poly=t_word,
                     similarity=1
-                )
+                )]
             elif f_word.word.upper() == t_word.word.upper():
-                return Match(
+                return [Match(
                     from_poly=f_word,
                     to_poly=t_word,
                     similarity=1
-                )
+                )]
 
     # medium pass (top results out of top 3's of each detected word)
     top_results = []
@@ -134,7 +131,7 @@ def get_matches(a_from_list, a_to_list, num_res=3, case_sense=True):
         final.append(best)
         top_results.remove(best)
     if num_res == 1:
-        return final[0]
+        return final[:0]
     return final
 
 
@@ -246,25 +243,25 @@ def get_words_from_pool(key_word, a_word_pool=None, response=None, right=False,
 
     if right:
         def constrain_right(a_word):
-            left_max = key_word.center.x - key_word.get_width()
+            left_max = key_word.center.x - (key_word.get_width()/2)
             return a_word.center.x > left_max
         pool_constraint.add_constraint(constrain_right)
 
     if left:
         def constrain_left(a_word):
-            right_max = key_word.center.x + key_word.get_width()
+            right_max = key_word.center.x + (key_word.get_width()/2)
             return a_word.center.x < right_max
         pool_constraint.add_constraint(constrain_left)
 
     if above:
         def constrain_above(a_word):
-            lowest = key_word.center.y + key_word.get_height()
+            lowest = key_word.center.y + (key_word.get_height()/2)
             return a_word.center.y < lowest     # coords are in 4th quadrant
         pool_constraint.add_constraint(constrain_above)
 
     if below:
         def constrain_below(a_word):
-            highest = key_word.center.y - key_word.get_height()
+            highest = key_word.center.y - (key_word.get_height()/2)
             return a_word.center.y > highest    # coords are in 4th quadrant
         pool_constraint.add_constraint(constrain_below)
 
@@ -420,6 +417,18 @@ def get_passwords(words):
             break
 
     return final_passwords
+
+
+def get_next_word_on_line(key_word, word_pool):
+    words_from_pool = get_words_from_pool(
+        key_word,
+        a_word_pool=word_pool,
+        right=True,
+        above=True,
+        below=True
+    )
+    proximity_sort(key_word, words_from_pool, bias=10)
+    return words_from_pool[0] if words_from_pool else None
 
 
 if __name__ == '__main__':
